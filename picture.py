@@ -7,6 +7,7 @@ from PIL import ImageDraw
 from PIL import ImageFont
 
 
+# 生成随即颜色
 def random_color():
     c1 = random.randint(0, 255)
     c2 = random.randint(0, 255)
@@ -14,11 +15,13 @@ def random_color():
     return c1, c2, c3
 
 
+# 生成图片
 def generate_picture(width=120, height=35):
     image = Image.new('RGB', (width, height), random_color())
     return image
 
 
+# 获取随机小写字母和数字的组合
 def get_random_str():
     random_num = str(random.randint(0, 9))
     random_low_alpha = chr(random.randint(97, 122))
@@ -26,6 +29,7 @@ def get_random_str():
     return random_char
 
 
+# 将获得的组合画在图片上
 def draw_str(count, image, font_size):
     draw = ImageDraw.Draw(image)
     font_file = os.path.join('FreeMonoBold.ttf')
@@ -40,6 +44,7 @@ def draw_str(count, image, font_size):
     return valid_str, image
 
 
+# 在验证码图片上制造干扰
 def noise(image, width=120, height=35, line_count=3, point_count=20):
     draw = ImageDraw.Draw(image)
     for i in range(line_count):
@@ -57,6 +62,7 @@ def noise(image, width=120, height=35, line_count=3, point_count=20):
     return image
 
 
+# 将图片转存为base64编码(如果只是为了生成图片可以不用转换，base64编码为网上图片验证码的格式)
 def valid_code():
     image = generate_picture()
     valid_str, image = draw_str(4, image, 35)
